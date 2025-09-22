@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// Slot lifecycle status
+enum SlotStatus {
+  scheduled   // created, upcoming, still has capacity
+  full        // created, upcoming, capacity reached
+  active      // currently happening
+  completed   // finished normally
+  cancelled   // cancelled
+}
+
+/// Invite lifecycle status
+enum InviteStatus {
+  pending        // Invite sent but no response yet
+  accepted       // Invitee has confirmed attendance
+  declined       // Invitee has declined the invitation
+  revoked        // Admin has revoked the invite (no longer valid)
+  needs_reconfirm // Slot was rescheduled or capacity changed; needs to confirm again
+}
+
+model Property {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  address         String?
+  /// IANA timezone, default IST (Asia/Kolkata)
+  timezone        String   @default("Asia/Kolkata")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  slots           Slot[]
+}
+
+model Slot {
+  id                String     @id @default(cuid())
+  propertyId        String
+  property          Property   @relation(fields: [propertyId], references: [id])
+  /// Stored in UTC; UI renders in property-local timezone
+  startUtc          DateTime
+  endUtc            DateTime
+  capacity          Int      @default(1)
+  status            SlotStatus @default(scheduled)
+  /// Increment on each reschedule to invalidate/reconfirm acceptances
+  rescheduleVersion Int        @default(0)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  invites           Invite[]
+
+  @@index([propertyId, startUtc])
+  @@index([propertyId, endUtc])
+  @@index([status])
+}
+
+model Invite {
+  id           String       @id @default(cuid())
+  slotId       String
+  slot         Slot         @relation(fields: [slotId], references: [id])
+  email        String
+  name         String?
+  /// Store only a secure hash of the token; tokens are single-use
+  tokenHash    String       @unique
+  status       InviteStatus @default(pending)
+  respondedAt  DateTime?
+  revokedAt    DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@unique([slotId, email])
+  @@index([email])
+  @@index([status])
+}
+
+

@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* Design tokens */
+:root {
+  /* Base */
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+
+  /* Primary (Airbnb-like coral) */
+  --primary-50: #fff4f0;
+  --primary-100: #ffe6de;
+  --primary-200: #ffccbf;
+  --primary-300: #ffad94;
+  --primary-400: #ff8a66;
+  --primary-500: #ff5a5f; /* main */
+  --primary-600: #e14e53;
+  --primary-700: #bf4347;
+  --primary-800: #9f383c;
+  --primary-900: #7f2d31;
+
+  /* Neutrals */
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d4;
+  --neutral-400: #a3a3a3;
+  --neutral-500: #737373;
+  --neutral-600: #525252;
+  --neutral-700: #404040;
+  --neutral-800: #262626;
+  --neutral-900: #171717;
+
+  /* Semantic */
+  --success-500: #16a34a;
+  --warning-500: #f59e0b;
+  --danger-500: #dc2626;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 1px -1px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 6px 12px -2px rgb(0 0 0 / 0.1), 0 3px 6px -2px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 18px 36px -6px rgb(0 0 0 / 0.18), 0 8px 16px -6px rgb(0 0 0 / 0.12);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --background: #0b0b0b;
+  --foreground: #ededed;
+
+  --neutral-50: #0f0f0f;
+  --neutral-100: #171717;
+  --neutral-200: #1f1f1f;
+  --neutral-300: #262626;
+  --neutral-400: #404040;
+  --neutral-500: #525252;
+  --neutral-600: #737373;
+  --neutral-700: #a3a3a3;
+  --neutral-800: #d4d4d4;
+  --neutral-900: #f5f5f5;
+}
+
+/* Tailwind theme mapping */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+
+  --color-success-500: var(--success-500);
+  --color-warning-500: var(--warning-500);
+  --color-danger-500: var(--danger-500);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Base */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    var(--font-geist-sans),
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+/* Focus ring */
+:where(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+/* Utility helpers */
+.shadow-token-sm {
+  box-shadow: var(--shadow-sm);
+}
+.shadow-token-md {
+  box-shadow: var(--shadow-md);
+}
+.shadow-token-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card elevation presets (for consistent use across pages) */
+.shadow-card {
+  box-shadow:
+    0 2px 6px rgb(0 0 0 / 0.08),
+    0 12px 24px -12px rgb(0 0 0 / 0.14);
+}
+.shadow-card-lg {
+  box-shadow:
+    0 16px 32px -10px rgb(0 0 0 / 0.22),
+    0 8px 20px -8px rgb(0 0 0 / 0.14);
+}
+
+/* Border token utility */
+.border-token {
+  border-color: var(--neutral-200);
+}
