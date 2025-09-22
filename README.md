@@ -32,7 +32,7 @@ This app lets admins create and manage property viewing slots, invite attendees 
 
 ## Tech Stack
 
-- Framework: Next.js 14 (App Router), TypeScript (strict)
+- Framework: Next.js 15 (App Router), TypeScript (strict)
 - Styling: TailwindCSS, custom design tokens, Radix UI icons (lucide-react)
 - Data: Prisma ORM + SQLite
 - Validation: Zod, React Hook Form
@@ -55,13 +55,13 @@ This app lets admins create and manage property viewing slots, invite attendees 
 
 Prerequisites:
 
-- Node.js 18+
-- pnpm 8+
+- Node.js 20+
+- pnpm 10+
 
 Clone & install:
 
 ```bash
-git clone https://github.com/your-org/property-viewing-management.git
+git clone https://github.com/see002/property-viewing-management.git
 cd property-viewing-management
 pnpm install
 ```
@@ -93,11 +93,17 @@ pnpm dev
 # open http://localhost:3000
 ```
 
+Invite link (dev): After creating a slot with invitees, the email and token can be read from the server terminal output. You can open the invite page directly using the query params:
+
+- Open: `http://localhost:3000/invite?email=<EMAIL>&token=<TOKEN>`
+- Example: `http://localhost:3000/invite?email=aa%40aa.aa&token=JpiiTU7D5Pxti-sxNkE0dgquAW52RWlt8U6A6rdOfIg`
+
 Useful scripts:
 
 - `pnpm prisma:generate` → Generate Prisma client
 - `pnpm prisma:migrate` → Apply migrations
 - `pnpm prisma:seed` → Seed development data (properties, slots, invites)
+- `pnpm prisma:studio` → Open Prisma Studio (GUI DB browser) at `http://localhost:5555` (uses `DATABASE_URL`)
 - `pnpm lint` → ESLint
 - `pnpm dev` → Start Next.js dev server
 
