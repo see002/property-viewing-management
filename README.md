@@ -2,6 +2,8 @@
 
 Airbnb-inspired property viewing slot manager with admin and invitee flows. Built with Next.js App Router, TypeScript, TailwindCSS, Prisma (SQLite), and a modern UI stack.
 
+Video Demo → https://www.loom.com/share/e6c832ae7c004c1f85c7e3ba9220aa7d?sid=f5f2687b-0d11-4eb1-85b6-4afe85107072
+
 ## Overview
 
 This app lets admins create and manage property viewing slots, invite attendees via secure token links, and track attendance. Invitees can accept or decline directly from their invite link.
